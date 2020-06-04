@@ -5,7 +5,7 @@ import { makeReactNativeDisklet } from 'disklet'
 import { type EdgeContext } from 'edge-core-js/types'
 import React, { PureComponent } from 'react'
 import DeviceInfo from 'react-native-device-info'
-import Locale from 'react-native-locale'
+import { getLocales, getNumberFormatSettings } from 'react-native-localize'
 import { MenuProvider } from 'react-native-popup-menu'
 import { Provider } from 'react-redux'
 import { type Store, applyMiddleware, compose, createStore } from 'redux'
@@ -68,8 +68,11 @@ export class Services extends PureComponent<Props> {
   }
 
   componentDidMount() {
+    const [firstLocale] = getLocales()
+    const numberFormat = getNumberFormatSettings()
+
     this.dispatch(loadDeviceReferral())
-    setIntlLocale(Locale.constants())
+    setIntlLocale({ localeIdentifier: firstLocale.languageTag, ...numberFormat })
     selectLocale(DeviceInfo.getDeviceLocale())
   }
 
