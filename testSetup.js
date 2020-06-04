@@ -8,9 +8,6 @@ jest.mock('react-native-device-info', () => ({
   getBuildNumber() {
     return '2019010101'
   },
-  getDeviceLocale() {
-    return 'en_US'
-  },
   getVersion() {
     return '1.2.3'
   },
